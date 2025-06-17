@@ -89,7 +89,7 @@ const Signup = () => {
           <input
             type="text"
             name="subject"
-            placeholder="Subject You Teach"
+            placeholder="Course You Teach"
             required
             onChange={handleChange}
             className="w-full p-3 border rounded-xl"
