@@ -82,8 +82,10 @@ const Login = ({ setLoggedUser }) => {
         {message && (
           <p className="text-red-500 text-sm mb-3">{message}</p>
         )}
+        <p>Don't have an account?<a href="/signup" className="text-red-500"> Signup</a></p>
 
       </form>
+
 
     </div>
   );
