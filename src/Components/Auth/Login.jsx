@@ -2,9 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
 
+
 const Login = ({ setLoggedUser }) => {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const navigate = useNavigate();
+  const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -39,10 +41,10 @@ const Login = ({ setLoggedUser }) => {
       } else if (foundUser.role === "teacher") {
         navigate("/teacher");
       } else {
-        alert("Unknown role");
+        setMessage("Unknown role");
       }
     } else {
-      alert("Wrong credentials. Try again.");
+      setMessage("Wrong credentials. Try again.");
     }
   };
 
@@ -69,13 +71,20 @@ const Login = ({ setLoggedUser }) => {
           required
           className="w-full border mb-3 px-3 py-2 rounded"
         />
+
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
         >
           Login
         </button>
+        
+        {message && (
+          <p className="text-red-500 text-sm mb-3">{message}</p>
+        )}
+
       </form>
+
     </div>
   );
 };
