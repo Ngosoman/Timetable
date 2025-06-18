@@ -6,7 +6,7 @@ import StudentDashboard from "./Components/Student/StudentDashboard";
 import Signup from "./components/Auth/Signup"; 
 import { useAuth } from "./Context/AuthContext";
 
-function App({setUser}) {
+function App() {
   const { setUser} = useAuth();
   const handleLogout = () => {
     setUser(null);
