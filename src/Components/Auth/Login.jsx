@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../Context/AuthContext";
 
 const Login = () => {
   const [name, setName] = useState("");
@@ -17,7 +17,7 @@ const Login = () => {
     else if (role === "teacher") navigate("/teacher");
     else navigate("/student");
   };
-
+   
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300">
       <form
