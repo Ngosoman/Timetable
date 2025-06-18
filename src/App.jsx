@@ -3,7 +3,7 @@ import Login from "./Components/Auth/Login";
 import AdminDashboard from "./Components/Admin/Dashboard";
 import TeacherDashboard from "./Components/Teacher/TeacherDashboard";
 import StudentDashboard from "./Components/Student/StudentDashboard";
-import Signup from "./components/Auth/Signup"; 
+import Signup from "./Components/Auth/Signup"; 
 import { useAuth } from "./Context/AuthContext";
 
 function App() {

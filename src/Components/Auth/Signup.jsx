@@ -2,137 +2,81 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
-  const [role, setRole] = useState("student");
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
+  const navigate = useNavigate();
+  const [message, setMessage] = useState("");
+  const [formData, setFormData] = useState({
+    username: "",
     password: "",
-    confirmPassword: "",
-    course: "",
-    level: "",
-    semester: "",
-    subject: ""
+    role: "student", // default
   });
 
-  const navigate = useNavigate();
-
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSignup = (e) => {
     e.preventDefault();
-    if (form.password !== form.confirmPassword) {
-      alert("Passwords don't match!");
+
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Check if username already exists
+    const exists = users.find((u) => u.username === formData.username);
+    if (exists) {
+      setMessage("Username already exists!");
       return;
     }
 
-    // Normally, here you'd send to backend
-    alert("Account created!");
-    navigate("/");
+    // Save to localStorage
+    users.push(formData);
+    localStorage.setItem("users", JSON.stringify(users));
+    setMessage("Account created successfully! Now login.");
+
+    navigate("/login");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300">
+    <div className="min-h-screen flex items-center justify-center bg-green-50">
       <form
         onSubmit={handleSignup}
-        className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-lg space-y-4"
+        className="bg-white p-6 rounded shadow-md w-full max-w-md"
       >
-        <h2 className="text-2xl font-bold text-center text-blue-600">Sign Up</h2>
+        <h2 className="text-xl font-bold mb-4 text-center">Sign Up</h2>
 
         <input
           type="text"
-          name="name"
-          placeholder="Full Name"
-          required
+          name="username"
+          placeholder="Username"
           onChange={handleChange}
-          className="w-full p-3 border rounded-xl"
-        />
-
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
           required
-          onChange={handleChange}
-          className="w-full p-3 border rounded-xl"
+          className="w-full border mb-3 px-3 py-2 rounded"
         />
-
         <input
           type="password"
           name="password"
           placeholder="Password"
-          required
           onChange={handleChange}
-          className="w-full p-3 border rounded-xl"
-        />
-
-        <input
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirm Password"
           required
-          onChange={handleChange}
-          className="w-full p-3 border rounded-xl"
+          className="w-full border mb-3 px-3 py-2 rounded"
         />
 
         <select
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          className="w-full p-3 border rounded-xl"
+          name="role"
+          value={formData.role}
+          onChange={handleChange}
+          className="w-full border mb-3 px-3 py-2 rounded"
         >
           <option value="student">Student</option>
           <option value="teacher">Teacher</option>
         </select>
 
-        {role === "teacher" && (
-          <input
-            type="text"
-            name="subject"
-            placeholder="Course You Teach"
-            required
-            onChange={handleChange}
-            className="w-full p-3 border rounded-xl"
-          />
-        )}
-
-        {role === "student" && (
-          <>
-            <input
-              type="text"
-              name="course"
-              placeholder="Course"
-              required
-              onChange={handleChange}
-              className="w-full p-3 border rounded-xl"
-            />
-            <input
-              type="text"
-              name="level"
-              placeholder="Level (Certificate, Degree, etc)"
-              required
-              onChange={handleChange}
-              className="w-full p-3 border rounded-xl"
-            />
-            <input
-              type="text"
-              name="semester"
-              placeholder="Semester"
-              required
-              onChange={handleChange}
-              className="w-full p-3 border rounded-xl"
-            />
-          </>
-        )}
-
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition"
+          className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
         >
-          Sign Up
+          Create Account
         </button>
 
-        <p className="text-center text-sm">
+        <p className="text-sm text-center mt-4">
           Already have an account?{" "}
           <span
             className="text-blue-600 cursor-pointer"
@@ -142,6 +86,9 @@ const Signup = () => {
           </span>
         </p>
       </form>
+      {message && (
+        <p className="text-red-500 text-sm mt-3 text-center">{message}</p>
+      )}
     </div>
   );
 };
