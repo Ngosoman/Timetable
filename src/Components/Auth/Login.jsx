@@ -2,61 +2,76 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
 
-const Login = () => {
-  const [name, setName] = useState("");
-  const [role, setRole] = useState("student");
-  const [password, setPassword] = useState("");
+const Login = ({ setLoggedUser }) => {
+  const [formData, setFormData] = useState({ username: "", password: "" });
   const navigate = useNavigate();
-  const { setUser } = useAuth();
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleLogin = (e) => {
     e.preventDefault();
-    setUser({ name, role });
-    
-    if (role === "admin") navigate("/admin");
-    else if (role === "teacher") navigate("/teacher");
-    else navigate("/student");
+
+    const { username, password } = formData;
+
+    // Check for Admin first
+    if (username === "Admin" && password === "AdminTimetable") {
+      const adminUser = { name: "Admin", role: "admin" };
+      setLoggedUser(adminUser);
+      localStorage.setItem("loggedUser", JSON.stringify(adminUser));
+      navigate("/admin");
+      return;
+    }
+
+    // Check for student/teacher in localStorage
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const foundUser = users.find(
+      (u) => u.username === username && u.password === password
+    );
+
+    if (foundUser) {
+      setLoggedUser(foundUser);
+      localStorage.setItem("loggedUser", JSON.stringify(foundUser));
+
+      if (foundUser.role === "student") {
+        navigate("/student");
+      } else if (foundUser.role === "teacher") {
+        navigate("/teacher");
+      } else {
+        alert("Unknown role");
+      }
+    } else {
+      alert("Wrong credentials. Try again.");
+    }
   };
-   
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300">
+    <div className="min-h-screen flex items-center justify-center bg-blue-50">
       <form
         onSubmit={handleLogin}
-        className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md space-y-6"
+        className="bg-white p-6 rounded shadow-md w-full max-w-md"
       >
-        <h2 className="text-2xl font-bold text-center text-blue-600">Campus Timetable Login</h2>
-
+        <h2 className="text-xl font-bold mb-4 text-center">Login</h2>
         <input
           type="text"
-          placeholder="Enter your name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          name="username"
+          placeholder="Username"
+          onChange={handleChange}
           required
-          className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="w-full border mb-3 px-3 py-2 rounded"
         />
-
         <input
           type="password"
-          placeholder="Enter password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          name="password"
+          placeholder="Password"
+          onChange={handleChange}
           required
-          className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="w-full border mb-3 px-3 py-2 rounded"
         />
-
-        <select
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          className="w-full p-3 border border-gray-300 rounded-xl"
-        >
-          <option value="student">Student</option>
-          <option value="teacher">Teacher</option>
-          <option value="admin">Admin</option>
-        </select>
-
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white font-semibold py-3 rounded-xl hover:bg-blue-700 transition"
+          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
         >
           Login
         </button>
