@@ -1,30 +1,72 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const TeacherDashboard = ({ currentUser }) => {
+const TeacherDashboard = () => {
+  const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState(null);
   const [lessons, setLessons] = useState([]);
+  const [form, setForm] = useState({
+    course: "",
+    level: "",
+    semester: "",
+    day: "",
+    time: "",
+    subject: "",
+  });
 
+  // Fetch user and lessons
   useEffect(() => {
-    const allLessons = JSON.parse(localStorage.getItem("timetable")) || [];
-    const myLessons = allLessons.filter(
-      (lesson) => lesson.teacher === currentUser.name
-    );
-    setLessons(myLessons);
-  }, [currentUser.name]);
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    if (!user || user.role !== "teacher") {
+      navigate("/login");
+    } else {
+      setCurrentUser(user);
+      const allLessons = JSON.parse(localStorage.getItem("timetable")) || [];
+      const myLessons = allLessons.filter((lesson) => lesson.teacher === user.username);
+      setLessons(myLessons);
+    }
+  }, [navigate]);
 
   const handlePrint = () => {
     window.print();
   };
 
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleAddLesson = (e) => {
+    e.preventDefault();
+    const newLesson = {
+      ...form,
+      teacher: currentUser.username,
+    };
+    const allLessons = JSON.parse(localStorage.getItem("timetable")) || [];
+    allLessons.push(newLesson);
+    localStorage.setItem("timetable", JSON.stringify(allLessons));
+    setLessons([...lessons, newLesson]);
+
+    // Reset form
+    setForm({
+      course: "",
+      level: "",
+      semester: "",
+      day: "",
+      time: "",
+      subject: "",
+    });
+  };
 
   return (
-    <div className="p-6 bg-white rounded-xl shadow-md">
+    <div className="p-6 bg-white min-h-screen rounded-xl shadow-md">
       <h2 className="text-xl font-bold text-blue-700 mb-4">
-        Welcome, {currentUser.name}
+        Welcome, {currentUser?.username}
       </h2>
-      
+
       <p className="mb-4">Here are your assigned lessons:</p>
 
-      <div className="overflow-auto">
+      {/* Lesson Table */}
+      <div className="overflow-auto mb-6">
         <table className="w-full border text-sm">
           <thead className="bg-blue-100">
             <tr>
@@ -58,7 +100,74 @@ const TeacherDashboard = ({ currentUser }) => {
         </table>
       </div>
 
-      <div className="mt-4 text-right">
+      {/* Add Lesson Form */}
+      <div className="bg-blue-50 p-4 rounded-lg mb-4">
+        <h3 className="font-bold mb-3">Add Lesson</h3>
+        <form
+          onSubmit={handleAddLesson}
+          className="grid grid-cols-1 md:grid-cols-3 gap-4"
+        >
+          <input
+            name="course"
+            placeholder="Course"
+            value={form.course}
+            onChange={handleChange}
+            required
+            className="border px-3 py-2 rounded"
+          />
+          <input
+            name="level"
+            placeholder="Level"
+            value={form.level}
+            onChange={handleChange}
+            required
+            className="border px-3 py-2 rounded"
+          />
+          <input
+            name="semester"
+            placeholder="Semester"
+            value={form.semester}
+            onChange={handleChange}
+            required
+            className="border px-3 py-2 rounded"
+          />
+          <input
+            name="day"
+            placeholder="Day"
+            value={form.day}
+            onChange={handleChange}
+            required
+            className="border px-3 py-2 rounded"
+          />
+          <input
+            name="time"
+            placeholder="Time"
+            value={form.time}
+            onChange={handleChange}
+            required
+            className="border px-3 py-2 rounded"
+          />
+          <input
+            name="subject"
+            placeholder="Subject"
+            value={form.subject}
+            onChange={handleChange}
+            required
+            className="border px-3 py-2 rounded"
+          />
+
+          <div className="md:col-span-3">
+            <button
+              type="submit"
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            >
+              Add Lesson
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div className="text-right">
         <button
           onClick={handlePrint}
           className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"

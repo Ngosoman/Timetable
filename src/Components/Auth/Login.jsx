@@ -36,6 +36,8 @@ const Login = () => {
     if (foundUser) {
       setLoggedUser(foundUser);
       localStorage.setItem("loggedUser", JSON.stringify(foundUser));
+      // localStorage.setItem("currentUser", JSON.stringify(user));
+
 
       if (foundUser.role === "student") {
         navigate("/student");
