@@ -4,20 +4,24 @@ import AdminDashboard from "./Components/Admin/Dashboard";
 import TeacherDashboard from "./Components/Teacher/TeacherDashboard";
 import StudentDashboard from "./Components/Student/StudentDashboard";
 import Signup from "./Components/Auth/Signup"; 
+import { useAuth } from "../Context/AuthContext";
 
 
 function App() {
-  // // const { setUser} = useAuth();
-  // const handleLogout = () => {
-  //   setUser(null);
-  //   navigate("/");
-  //  }
+  const { setUser} = useAuth();
+  const handleLogout = () => {
+    setUser(null);
+    navigate("/");
+   }
+  
   
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        {/* <Route path="/login" element={<Login />} /> */}
+        <Route path="/login" element={<Login currentUser={loggedUser} logout={handleLogout} />} />
+        {/* <Route path="/signup" element={<Signup />} /> */}
+        <Route path="/signup" element={<Signup currentUser={loggedUser} logout={handleLogout} />} />
         <Route path="/admin" element={<AdminDashboard currentUser={loggedUser} logout={handleLogout} />} />
         <Route path="/teacher" element={<TeacherDashboard currentUser={loggedUser}  logout={handleLogout}/>} />
         <Route path="/student" element={<StudentDashboard currentUser={loggedUser} logout={handleLogout} />} /> 
