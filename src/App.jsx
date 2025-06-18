@@ -4,14 +4,14 @@ import AdminDashboard from "./Components/Admin/Dashboard";
 import TeacherDashboard from "./Components/Teacher/TeacherDashboard";
 import StudentDashboard from "./Components/Student/StudentDashboard";
 import Signup from "./Components/Auth/Signup"; 
-import { useAuth } from "./Context/AuthContext";
+
 
 function App() {
-  const { setUser} = useAuth();
-  const handleLogout = () => {
-    setUser(null);
-    navigate("/");
-   }
+  // // const { setUser} = useAuth();
+  // const handleLogout = () => {
+  //   setUser(null);
+  //   navigate("/");
+  //  }
   
   return (
     <Router>

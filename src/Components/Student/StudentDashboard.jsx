@@ -27,12 +27,23 @@ const StudentDashboard = ({ currentUser }) => {
   const handlePrint = () => {
     window.print();
   };
+  const handleLogout = () => {
+    localStorage.removeItem("loggedUser");
+    setLoggedUser(null);
+    navigate("/");
+  };
 
   return (
     <div className="p-6 bg-white rounded-xl shadow-md">
       <h2 className="text-xl font-bold text-blue-700 mb-4">
         Welcome, {currentUser.name}
       </h2>
+      <button
+          onClick={handleLogout}
+          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+        >
+          Logout
+        </button>
       <p className="mb-4">View your class timetable below:</p>
 
       {/* Filters */}
