@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 // import { useAuth } from "../../Context/AuthContext";
 
 
-const Login = ({ setLoggedUser }) => {
+const Login = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const navigate = useNavigate();
+  const [loggedUser, setLoggedUser] = useState(null);
   const [message, setMessage] = useState("");
 
   const handleChange = (e) => {

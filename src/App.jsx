@@ -15,7 +15,7 @@ function App({loggedUser}) {
     <Router>
       <Routes>
         {/* <Route path="/login" element={<Login />} /> */}
-        <Route path="/" element={<Login currentUser={loggedUser} />} />
+        <Route path="/" element={<Login  />} />
         {/* <Route path="/signup" element={<Signup />} /> */}
         <Route path="/signup" element={<Signup currentUser={loggedUser}  />} />
         <Route path="/admin" element={<AdminDashboard currentUser={loggedUser}  />} />
