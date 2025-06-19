@@ -1,3 +1,4 @@
+// Same imports
 import { useState, useEffect } from "react";
 
 const TimetableList = () => {
@@ -44,74 +45,40 @@ const TimetableList = () => {
 
   return (
     <div className="bg-white rounded-xl shadow-md p-6 mt-6">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold text-blue-700">Timetable Records</h2>
-        <button
-          onClick={handlePrint}
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-        >
-          Print All
-        </button>
-      </div>
+      <h2 className="text-xl font-bold mb-4 text-blue-700">Timetable Records</h2>
 
-      {/* Filters */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
-        <input
-          type="text"
-          placeholder="Filter by Course"
-          name="course"
-          value={filters.course}
-          onChange={handleFilterChange}
-          className="border px-3 py-2 rounded"
-        />
-        <input
-          type="text"
-          placeholder="Filter by Level"
-          name="level"
-          value={filters.level}
-          onChange={handleFilterChange}
-          className="border px-3 py-2 rounded"
-        />
-        <input
-          type="text"
-          placeholder="Filter by Semester"
-          name="semester"
-          value={filters.semester}
-          onChange={handleFilterChange}
-          className="border px-3 py-2 rounded"
-        />
+        <input type="text" placeholder="Filter by Course" name="course" value={filters.course} onChange={handleFilterChange} className="border px-3 py-2 rounded" />
+        <input type="text" placeholder="Filter by Level" name="level" value={filters.level} onChange={handleFilterChange} className="border px-3 py-2 rounded" />
+        <input type="text" placeholder="Filter by Semester" name="semester" value={filters.semester} onChange={handleFilterChange} className="border px-3 py-2 rounded" />
       </div>
 
-      {/* Timetable Table */}
       <div className="overflow-auto">
         <table className="w-full border border-gray-300 text-sm">
-          <thead className="bg-blue-100">
-            <tr>
-              <th className="p-2 border">Course</th>
-              <th className="p-2 border">Level</th>
-              <th className="p-2 border">Semester</th>
-              <th className="p-2 border">Day</th>
-              <th className="p-2 border">Time</th>
-              <th className="p-2 border">Subject</th>
-              <th className="p-2 border">Teacher</th>
-              <th className="p-2 border">Action</th>
+          <thead>
+            <tr className="bg-blue-100">
+              <th>Course</th>
+              <th>Level</th>
+              <th>Semester</th>
+              <th>Day</th>
+              <th>Time</th>
+              <th>Unit</th>
+              <th>Teacher</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {filtered.map((item, index) => (
-              <tr key={index} className="border-t text-center">
-                <td className="p-2 border">{item.course}</td>
-                <td className="p-2 border">{item.level}</td>
-                <td className="p-2 border">{item.semester}</td>
-                <td className="p-2 border">{item.day}</td>
-                <td className="p-2 border">{item.time}</td>
-                <td className="p-2 border">{item.subject}</td>
-                <td className="p-2 border">{item.teacher}</td>
-                <td className="p-2 border">
-                  <button
-                    onClick={() => handleDelete(index)}
-                    className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 text-xs"
-                  >
+              <tr key={index} className="border-t">
+                <td>{item.course}</td>
+                <td>{item.level}</td>
+                <td>{item.semester}</td>
+                <td>{item.day}</td>
+                <td>{item.time}</td>
+                <td>{item.unit}</td>
+                <td>{item.teacher}</td>
+                <td>
+                  <button onClick={() => handleDelete(index)} className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 text-xs">
                     Delete
                   </button>
                 </td>
@@ -120,12 +87,18 @@ const TimetableList = () => {
             {filtered.length === 0 && (
               <tr>
                 <td colSpan="8" className="text-center py-4 text-gray-500">
-                  No matching timetable entries.
+                  No matching timetable entries
                 </td>
               </tr>
             )}
           </tbody>
         </table>
+      </div>
+
+      <div className="mt-4 text-right">
+        <button onClick={handlePrint} className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+          Print Timetable
+        </button>
       </div>
     </div>
   );
