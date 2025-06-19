@@ -47,7 +47,7 @@ const Signup = () => {
     });
 
     setMessage("Account created successfully! Redirecting...");
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -158,6 +158,19 @@ const Signup = () => {
               <option value="Semester 1">Semester 1</option>
               <option value="Semester 2">Semester 2</option>
               <option value="Semester 3">Semester 3</option>
+            </select>
+
+            <select
+              name="Year"
+              onChange={handleChange}
+              required
+              className="w-full border mb-3 px-3 py-2 rounded"
+            >
+              <option value="">Select Year</option>
+              <option value="Year 1">Year 1</option>
+              <option value="Year 2">Year 2</option>
+              <option value="Year 3">Year 3</option>
+              <option value="Year 4">Year 4</option>
             </select>
           </>
         )}

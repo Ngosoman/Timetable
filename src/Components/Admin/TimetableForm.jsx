@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const TimetableForm = () => {
+const TimetableForm = ({ users }) => {
   const [form, setForm] = useState({
     course: "",
     level: "",
@@ -11,13 +11,25 @@ const TimetableForm = () => {
     teacher: ""
   });
 
-  const [teachers, setTeachers] = useState([]);
+  const [courseOptions, setCourseOptions] = useState([]);
+  const [levelOptions, setLevelOptions] = useState([]);
+  const [semesterOptions, setSemesterOptions] = useState([]);
+  const [teacherOptions, setTeacherOptions] = useState([]);
 
   useEffect(() => {
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const onlyTeachers = users.filter((u) => u.role === "teacher");
-    setTeachers(onlyTeachers);
-  }, []);
+    // Filter unique course, level, semester from students
+    const students = users.filter((u) => u.role === "student");
+    const teachers = users.filter((u) => u.role === "teacher");
+
+    const uniqueCourses = [...new Set(students.map((s) => s.course))];
+    const uniqueLevels = [...new Set(students.map((s) => s.level))];
+    const uniqueSemesters = [...new Set(students.map((s) => s.semester))];
+
+    setCourseOptions(uniqueCourses);
+    setLevelOptions(uniqueLevels);
+    setSemesterOptions(uniqueSemesters);
+    setTeacherOptions(teachers);
+  }, [users]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -29,6 +41,7 @@ const TimetableForm = () => {
     const updated = [...existing, form];
     localStorage.setItem("timetable", JSON.stringify(updated));
     alert("Lesson added to timetable!");
+
     setForm({
       course: "",
       level: "",
@@ -46,33 +59,55 @@ const TimetableForm = () => {
 
       <form onSubmit={handleSubmit} className="space-y-3">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input
-            type="text"
+          {/* Course */}
+          <select
             name="course"
-            placeholder="Course"
             required
             value={form.course}
             onChange={handleChange}
             className="border p-2 rounded"
-          />
-          <input
-            type="text"
+          >
+            <option value="">Select Course</option>
+            {courseOptions.map((c, i) => (
+              <option key={i} value={c}>
+                {c}
+              </option>
+            ))}
+          </select>
+
+          {/* Level */}
+          <select
             name="level"
-            placeholder="Level (Certificate, Degree, etc)"
             required
             value={form.level}
             onChange={handleChange}
             className="border p-2 rounded"
-          />
-          <input
-            type="text"
+          >
+            <option value="">Select Level</option>
+            {levelOptions.map((l, i) => (
+              <option key={i} value={l}>
+                {l}
+              </option>
+            ))}
+          </select>
+
+          {/* Semester */}
+          <select
             name="semester"
-            placeholder="Semester"
             required
             value={form.semester}
             onChange={handleChange}
             className="border p-2 rounded"
-          />
+          >
+            <option value="">Select Semester</option>
+            {semesterOptions.map((s, i) => (
+              <option key={i} value={s}>
+                {s}
+              </option>
+            ))}
+          </select>
+
+          {/* Day & Time */}
           <input
             type="text"
             name="day"
@@ -91,6 +126,8 @@ const TimetableForm = () => {
             onChange={handleChange}
             className="border p-2 rounded"
           />
+
+          {/* Subject */}
           <input
             type="text"
             name="subject"
@@ -100,6 +137,8 @@ const TimetableForm = () => {
             onChange={handleChange}
             className="border p-2 rounded"
           />
+
+          {/* Assign Teacher */}
           <select
             name="teacher"
             required
@@ -108,9 +147,9 @@ const TimetableForm = () => {
             className="border p-2 rounded"
           >
             <option value="">Assign Teacher</option>
-            {teachers.map((t, i) => (
-              <option key={i} value={t.name}>
-                {t.name}
+            {teacherOptions.map((t, i) => (
+              <option key={i} value={t.username}>
+                {t.username} ({t.subject})
               </option>
             ))}
           </select>

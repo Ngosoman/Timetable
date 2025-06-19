@@ -7,6 +7,7 @@ const Login = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const navigate = useNavigate();
   const [loggedUser, setLoggedUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
   const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
@@ -23,6 +24,7 @@ const Login = () => {
       const adminUser = { name: "Admin", role: "admin" };
       setLoggedUser(adminUser);
       localStorage.setItem("loggedUser", JSON.stringify(adminUser));
+      localStorage.setItem("currentUser", JSON.stringify(adminUser));
       navigate("/admin");
       return;
     }
@@ -34,9 +36,9 @@ const Login = () => {
     );
 
     if (foundUser) {
-      setLoggedUser(foundUser);
+      setLoggedUser(currentUser);
       localStorage.setItem("loggedUser", JSON.stringify(foundUser));
-      // localStorage.setItem("currentUser", JSON.stringify(user));
+      localStorage.setItem("currentUser", JSON.stringify(foundUser));
 
 
       if (foundUser.role === "student") {

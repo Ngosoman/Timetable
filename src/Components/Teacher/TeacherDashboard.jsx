@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import useGreetings from "../useGreetings";
 
 const TeacherDashboard = () => {
+  const {greeting, holidayMessage}= useGreetings();
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
   const [lessons, setLessons] = useState([]);
@@ -11,14 +13,14 @@ const TeacherDashboard = () => {
     semester: "",
     day: "",
     time: "",
-    subject: "",
+    Unit: "",
   });
 
   // Fetch user and lessons
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     if (!user || user.role !== "teacher") {
-      navigate("/login");
+      navigate("/teacher");
     } else {
       setCurrentUser(user);
       const allLessons = JSON.parse(localStorage.getItem("timetable")) || [];
@@ -34,6 +36,9 @@ const TeacherDashboard = () => {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+  const welcome = (e)  => {
+
+  }
 
   const handleAddLesson = (e) => {
     e.preventDefault();
@@ -53,14 +58,15 @@ const TeacherDashboard = () => {
       semester: "",
       day: "",
       time: "",
-      subject: "",
+      Unit: "",
     });
   };
+
 
   return (
     <div className="p-6 bg-white min-h-screen rounded-xl shadow-md">
       <h2 className="text-xl font-bold text-blue-700 mb-4">
-        Welcome, {currentUser?.username}
+        {greeting} {holidayMessage && ` - ${holidayMessage}`}  {currentUser?.username}
       </h2>
 
       <p className="mb-4">Here are your assigned lessons:</p>
@@ -75,7 +81,7 @@ const TeacherDashboard = () => {
               <th>Semester</th>
               <th>Day</th>
               <th>Time</th>
-              <th>Subject</th>
+              <th>Unit</th>
             </tr>
           </thead>
           <tbody>
@@ -86,7 +92,7 @@ const TeacherDashboard = () => {
                 <td>{item.semester}</td>
                 <td>{item.day}</td>
                 <td>{item.time}</td>
-                <td>{item.subject}</td>
+                <td>{item.Unit}</td>
               </tr>
             ))}
             {lessons.length === 0 && (
@@ -148,9 +154,9 @@ const TeacherDashboard = () => {
             className="border px-3 py-2 rounded"
           />
           <input
-            name="subject"
-            placeholder="Subject"
-            value={form.subject}
+            name="Unit"
+            placeholder="Unit"
+            value={form.unit}
             onChange={handleChange}
             required
             className="border px-3 py-2 rounded"

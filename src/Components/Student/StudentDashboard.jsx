@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import useGreetings from "../useGreetings";
 
 const StudentDashboard = () => {
+  const {greeting, holidayMessage} = useGreetings()
   const [timetable, setTimetable] = useState([]);
   const [currentUser, setCurrentUser] = useState({
     username: "",
@@ -47,7 +49,7 @@ const StudentDashboard = () => {
   return (
     <div className="p-6 bg-white min-h-screen rounded-xl shadow-md">
       <h2 className="text-xl font-bold text-blue-700 mb-4">
-        Welcome, {currentUser.username || "Student"}
+       {greeting} {holidayMessage && ` - ${holidayMessage}`} {currentUser?.username}
       </h2>
 
       {/* Display user details */}
@@ -55,6 +57,7 @@ const StudentDashboard = () => {
         <p><strong>Course:</strong> {currentUser.course || "Not set"}</p>
         <p><strong>Level:</strong> {currentUser.level || "Not set"}</p>
         <p><strong>Semester:</strong> {currentUser.semester || "Not set"}</p>
+        <p><strong>Year:</strong> {currentUser.year || "Not set"}</p>
       </div>
 
       <p className="mb-4 text-gray-600">View your class timetable below:</p>
@@ -94,7 +97,7 @@ const StudentDashboard = () => {
             <tr>
               <th>Day</th>
               <th>Time</th>
-              <th>Subject</th>
+              <th>Unit</th>
               <th>Teacher</th>
             </tr>
           </thead>
@@ -104,7 +107,7 @@ const StudentDashboard = () => {
                 <tr key={index} className="border-t">
                   <td>{lesson.day}</td>
                   <td>{lesson.time}</td>
-                  <td>{lesson.subject}</td>
+                  <td>{lesson.unit}</td>
                   <td>{lesson.teacher}</td>
                 </tr>
               ))

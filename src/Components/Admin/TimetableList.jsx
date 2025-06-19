@@ -44,7 +44,15 @@ const TimetableList = () => {
 
   return (
     <div className="bg-white rounded-xl shadow-md p-6 mt-6">
-      <h2 className="text-xl font-bold mb-4 text-blue-700">Timetable Records</h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-bold text-blue-700">Timetable Records</h2>
+        <button
+          onClick={handlePrint}
+          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+        >
+          Print All
+        </button>
+      </div>
 
       {/* Filters */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
@@ -74,32 +82,32 @@ const TimetableList = () => {
         />
       </div>
 
-      {/* Table */}
+      {/* Timetable Table */}
       <div className="overflow-auto">
         <table className="w-full border border-gray-300 text-sm">
-          <thead>
-            <tr className="bg-blue-100">
-              <th>Course</th>
-              <th>Level</th>
-              <th>Semester</th>
-              <th>Day</th>
-              <th>Time</th>
-              <th>Subject</th>
-              <th>Teacher</th>
-              <th>Action</th>
+          <thead className="bg-blue-100">
+            <tr>
+              <th className="p-2 border">Course</th>
+              <th className="p-2 border">Level</th>
+              <th className="p-2 border">Semester</th>
+              <th className="p-2 border">Day</th>
+              <th className="p-2 border">Time</th>
+              <th className="p-2 border">Subject</th>
+              <th className="p-2 border">Teacher</th>
+              <th className="p-2 border">Action</th>
             </tr>
           </thead>
           <tbody>
             {filtered.map((item, index) => (
-              <tr key={index} className="border-t">
-                <td>{item.course}</td>
-                <td>{item.level}</td>
-                <td>{item.semester}</td>
-                <td>{item.day}</td>
-                <td>{item.time}</td>
-                <td>{item.subject}</td>
-                <td>{item.teacher}</td>
-                <td>
+              <tr key={index} className="border-t text-center">
+                <td className="p-2 border">{item.course}</td>
+                <td className="p-2 border">{item.level}</td>
+                <td className="p-2 border">{item.semester}</td>
+                <td className="p-2 border">{item.day}</td>
+                <td className="p-2 border">{item.time}</td>
+                <td className="p-2 border">{item.subject}</td>
+                <td className="p-2 border">{item.teacher}</td>
+                <td className="p-2 border">
                   <button
                     onClick={() => handleDelete(index)}
                     className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 text-xs"
@@ -112,22 +120,12 @@ const TimetableList = () => {
             {filtered.length === 0 && (
               <tr>
                 <td colSpan="8" className="text-center py-4 text-gray-500">
-                  No matching timetable entries
+                  No matching timetable entries.
                 </td>
               </tr>
             )}
           </tbody>
         </table>
-      </div>
-
-      {/* Print Button */}
-      <div className="mt-4 text-right">
-        <button
-          onClick={handlePrint}
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-        >
-          Print Timetable
-        </button>
       </div>
     </div>
   );
