@@ -44,7 +44,8 @@ const TimetableList = () => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6 mt-6">
+    <div className="bg-white rounded-xl shadow-md p-6 mt-6 space-y-4">
+
       <h2 className="text-xl font-bold mb-4 text-blue-700">Timetable Records</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
@@ -57,26 +58,26 @@ const TimetableList = () => {
         <table className="w-full border border-gray-300 text-sm">
           <thead>
             <tr className="bg-blue-100">
-              <th>Course</th>
-              <th>Level</th>
-              <th>Semester</th>
-              <th>Day</th>
-              <th>Time</th>
-              <th>Unit</th>
-              <th>Teacher</th>
-              <th>Action</th>
+              <th className="py-2 px-4 text-left">Course</th>
+              <th className="py-2 px-4 text-left">Level</th>
+              <th className="py-2 px-4 text-left">Semester</th>
+              <th className="py-2 px-4 text-left">Day</th>
+              <th className="py-2 px-4 text-left">Time</th>
+              <th className="py-2 px-4 text-left">Unit</th>
+              <th className="py-2 px-4 text-left">Teacher</th>
+              <th className="py-2 px-4 text-left">Action</th>
             </tr>
           </thead>
           <tbody>
             {filtered.map((item, index) => (
               <tr key={index} className="border-t">
-                <td>{item.course}</td>
-                <td>{item.level}</td>
-                <td>{item.semester}</td>
-                <td>{item.day}</td>
-                <td>{item.time}</td>
-                <td>{item.unit}</td>
-                <td>{item.teacher}</td>
+                <td className="py-2 px-2">{item.course}</td>
+                <td className="py-2 px-2">{item.level}</td>
+                <td className="py-2 px-2">{item.semester}</td>
+                <td className="py-2 px-2">{item.day}</td>
+                <td className="py-2 px-2">{item.time}</td>
+                <td className="py-2 px-2">{item.unit}</td>
+                <td className="py-2 px-2">{item.teacher}</td>
                 <td>
                   <button onClick={() => handleDelete(index)} className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 text-xs">
                     Delete
