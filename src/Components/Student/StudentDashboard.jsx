@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import useGreetings from "../useGreetings";
+import { Link } from "react-router-dom";
 
 const StudentDashboard = () => {
   const { greeting, holidayMessage } = useGreetings();
@@ -37,6 +38,14 @@ const StudentDashboard = () => {
       <h2 className="text-xl font-bold text-blue-700 mb-4">
         {greeting} {holidayMessage && ` - ${holidayMessage}`} {currentUser.username}
       </h2>
+      <div className="flex justify-end mb-4">
+  <Link
+    to="/profile"
+    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm font-medium"
+  >
+    My Profile
+  </Link>
+</div>
 
       {/* Display student details */}
       <div className="mb-6 text-sm bg-blue-50 p-4 rounded shadow-sm space-y-1">

@@ -4,6 +4,7 @@ import AdminDashboard from "./Components/Admin/Dashboard";
 import TeacherDashboard from "./Components/Teacher/TeacherDashboard";
 import StudentDashboard from "./Components/Student/StudentDashboard";
 import Signup from "./Components/Auth/Signup"; 
+import Profile from "./Components/Profile";
 
 
 
@@ -21,6 +22,7 @@ function App({loggedUser}) {
         <Route path="/admin" element={<AdminDashboard currentUser={loggedUser}  />} />
         <Route path="/teacher" element={<TeacherDashboard currentUser={loggedUser}  />} />
         <Route path="/student" element={<StudentDashboard currentUser={loggedUser}  />} /> 
+        <Route path="/profile" element={<Profile currentUser={loggedUser}  />} />
       </Routes>
     </Router>
   );
