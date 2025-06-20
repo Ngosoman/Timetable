@@ -6,17 +6,7 @@ import { Link } from "react-router-dom";
 import ClickSpark from "../../Bits/ClickSpark";
 
 
-<ClickSpark
-  sparkColor='#fff'
-  sparkSize={10}
-  sparkRadius={15}
-  sparkCount={8}
-  duration={400}
->
-  { <>
-    
-    </>}
-</ClickSpark>
+
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
 
@@ -26,6 +16,15 @@ const AdminDashboard = () => {
   }, []);
 
   return (
+    <ClickSpark
+  sparkColor='#D0D043'
+  sparkSize={37}
+  sparkRadius={60}
+  sparkCount={17}
+  duration={1000}
+>
+ 
+
     <div className="min-h-screen bg-gray-100 p-6">
       <h1 className="text-3xl font-bold mb-6 text-center text-blue-700">
         Admin Dashboard
@@ -55,6 +54,7 @@ const AdminDashboard = () => {
 
       </div>
     </div>
+    </ClickSpark>
   );
 };
 
