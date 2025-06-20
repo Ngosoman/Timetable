@@ -14,6 +14,18 @@ const Profile = () => {
     setPreview(current.profilePic || "");
   }, [navigate]);
 
+  const handleBack = () => {
+    if (user?.role === "student") {
+      navigate("/student");
+    } else if (user?.role === "teacher") {
+      navigate("/teacher");
+    } else if (user?.role === "admin") {
+      navigate("/admin");
+    } else {
+      navigate("/");
+    }
+  };
+
   const handleInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
@@ -57,7 +69,15 @@ const Profile = () => {
   };
 
   return (
-    <div className="p-6 max-w-xl mx-auto bg-white rounded-xl shadow space-y-4">
+    <div className="p-6 max-w-xl mx-auto bg-white rounded-xl shadow space-y-4 relative">
+      
+      <button
+        onClick={handleBack}
+        className="absolute top-4 left-4 text-blue-600 hover:text-blue-800 text-sm flex items-center"
+      >
+        ← Back
+      </button>
+
       <h2 className="text-2xl font-bold text-center text-blue-700">My Profile</h2>
 
       <div className="flex justify-center">
@@ -68,7 +88,6 @@ const Profile = () => {
         />
       </div>
       <input type="file" onChange={handlePhotoUpload} className="block w-full" />
-
       <input
         type="text"
         name="username"
@@ -77,7 +96,6 @@ const Profile = () => {
         className="border p-2 rounded w-full"
         placeholder="Username"
       />
-
       <input
         type="password"
         value={newPassword}
@@ -85,27 +103,27 @@ const Profile = () => {
         className="border p-2 rounded w-full"
         placeholder="New Password"
       />
-      <div className="flex gap-x-4">
-      <button
-        onClick={handlePasswordChange}
-       className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm font-medium"
-      >
-        Change Password
-      </button>
+      <div className="flex flex-wrap gap-3">
+        <button
+          onClick={handlePasswordChange}
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm font-medium"
+        >
+          Change Password
+        </button>
 
-      <button
-        onClick={handleSaveChanges}
-       className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm font-medium"
-      >
-        Save Profile Changes
-      </button>
+        <button
+          onClick={handleSaveChanges}
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm font-medium"
+        >
+          Save Profile Changes
+        </button>
 
-      <button
-        onClick={handleLogout}
-       className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm font-medium"
-      >
-        Log Out
-      </button>
+        <button
+          onClick={handleLogout}
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm font-medium"
+        >
+          Log Out
+        </button>
       </div>
     </div>
   );
