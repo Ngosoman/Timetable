@@ -79,42 +79,34 @@ const Profile = () => {
       />
 
       <input
-        type="email"
-        name="email"
-        value={user.email}
-        onChange={handleInputChange}
-        className="border p-2 rounded w-full"
-        placeholder="Email"
-        disabled
-      />
-
-      <input
         type="password"
         value={newPassword}
         onChange={(e) => setNewPassword(e.target.value)}
         className="border p-2 rounded w-full"
         placeholder="New Password"
       />
+      <div className="flex gap-x-4">
       <button
         onClick={handlePasswordChange}
-        className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 w-full"
+       className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm font-medium"
       >
         Change Password
       </button>
 
       <button
         onClick={handleSaveChanges}
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full"
+       className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm font-medium"
       >
         Save Profile Changes
       </button>
 
       <button
         onClick={handleLogout}
-        className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 w-full"
+       className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm font-medium"
       >
         Log Out
       </button>
+      </div>
     </div>
   );
 };
