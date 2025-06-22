@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useGreetings from "../useGreetings";
 import { Link } from "react-router-dom";
+import Particles from "../../Bits/Particles";
 
 const TeacherDashboard = () => {
   const { greeting, holidayMessage } = useGreetings();
@@ -83,24 +84,24 @@ const TeacherDashboard = () => {
         <table className="w-full border text-sm">
           <thead className="bg-blue-100">
             <tr>
-              <th>Course</th>
-              <th>Level</th>
-              <th>Semester</th>
-              <th>Day</th>
-              <th>Time</th>
-              <th>Unit</th>
+              <th className="border px-4 py-2">Course</th>
+              <th className="border px-4 py-2">Level</th>
+              <th className="border px-4 py-2" >Semester</th>
+              <th className="border px-4 py-2">Day</th>
+              <th className="border px-4 py-2">Time</th>
+              <th className="border px-4 py-2">Unit</th>
             </tr>
           </thead>
           <tbody>
             {lessons.length > 0 ? (
               lessons.map((item, index) => (
                 <tr key={index} className="border-t">
-                  <td>{item.course}</td>
-                  <td>{item.level}</td>
-                  <td>{item.semester}</td>
-                  <td>{item.day}</td>
-                  <td>{item.time}</td>
-                  <td>{item.unit}</td>
+                  <td className="border px-4 py-2 text-center">{item.course}</td>
+                  <td className="border px-4 py-2 text-center">{item.level}</td>
+                  <td className="border px-4 py-2 text-center">{item.semester}</td>
+                  <td className="border px-4 py-2 text-center">{item.day}</td>
+                  <td className="border px-4 py-2 text-center">{item.time}</td>
+                  <td className="border px-4 py-2 text-center">{item.unit}</td>
                 </tr>
               ))
             ) : (

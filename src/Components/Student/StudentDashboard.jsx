@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import useGreetings from "../useGreetings";
 import { Link } from "react-router-dom";
+import LetterGlitch from "../../Bits/LetterGlitch";
 
 const StudentDashboard = () => {
   const { greeting, holidayMessage } = useGreetings();
@@ -52,7 +53,7 @@ const StudentDashboard = () => {
         <p><strong>Course:</strong> {currentUser.course || "Not set"}</p>
         <p><strong>Level:</strong> {currentUser.level || "Not set"}</p>
         <p><strong>Semester:</strong> {currentUser.semester || "Not set"}</p>
-        <p><strong>Year:</strong> {currentUser.year || "Not set"}</p>
+        {/* <p><strong>Year:</strong> {currentUser.year || "Not set"}</p> */}
       </div>
 
       <p className="mb-4 text-gray-600">Your class timetable for <strong>{currentUser.course}</strong> is shown below:</p>
@@ -62,20 +63,20 @@ const StudentDashboard = () => {
         <table className="w-full border text-sm">
           <thead className="bg-blue-100">
             <tr>
-              <th>Day</th>
-              <th>Time</th>
-              <th>Unit</th>
-              <th>Teacher</th>
+              <th className="border px-4 py-2">Day</th>
+              <th className="border px-4 py-2">Time</th>
+              <th className="border px-4 py-2">Unit</th>
+              <th className="border px-4 py-2">Teacher</th>
             </tr>
           </thead>
           <tbody>
             {timetable.length > 0 ? (
               timetable.map((lesson, index) => (
                 <tr key={index} className="border-t">
-                  <td>{lesson.day}</td>
-                  <td>{lesson.time}</td>
-                  <td>{lesson.unit}</td>
-                  <td>{lesson.teacher}</td>
+                  <td className="border px-4 py-2 text-center">{lesson.day}</td>
+                  <td className="border px-4 py-2 text-center">{lesson.time}</td>
+                  <td className="border px-4 py-2 text-center">{lesson.unit}</td>
+                  <td className="border px-4 py-2 text-center">{lesson.teacher}</td>
                 </tr>
               ))
             ) : (

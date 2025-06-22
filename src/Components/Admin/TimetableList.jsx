@@ -71,13 +71,13 @@ const TimetableList = () => {
           <tbody>
             {filtered.map((item, index) => (
               <tr key={index} className="border-t">
-                <td className="py-2 px-2">{item.course}</td>
-                <td className="py-2 px-2">{item.level}</td>
-                <td className="py-2 px-2">{item.semester}</td>
-                <td className="py-2 px-2">{item.day}</td>
-                <td className="py-2 px-2">{item.time}</td>
-                <td className="py-2 px-2">{item.unit}</td>
-                <td className="py-2 px-2">{item.teacher}</td>
+                <td className="py-2 px-2 text-center">{item.course}</td>
+                <td className="py-2 px-2 text-center">{item.level}</td>
+                <td className="py-2 px-2 text-center">{item.semester}</td>
+                <td className="py-2 px-2 text-center">{item.day}</td>
+                <td className="py-2 px-2 text-center ">{item.time}</td>
+                <td className="py-2 px-2 text-center">{item.unit}</td>
+                <td className="py-2 px-2 text-center">{item.teacher}</td>
                 <td>
                   <button onClick={() => handleDelete(index)} className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 text-xs">
                     Delete
