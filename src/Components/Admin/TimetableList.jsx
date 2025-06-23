@@ -1,4 +1,3 @@
-// Same imports
 import { useState, useEffect } from "react";
 
 const TimetableList = () => {

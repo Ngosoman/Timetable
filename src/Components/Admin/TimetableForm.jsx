@@ -46,7 +46,7 @@ const TimetableForm = () => {
 
       <form onSubmit={handleSubmit} className="space-y-3">
        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-  {/* Updated Course Field */}
+  
   <select
     name="course"
     required
@@ -93,7 +93,7 @@ const TimetableForm = () => {
     <option value="Human Resource Management">Human Resource Management</option>
   </select>
 
-  {/* Other Form Fields */}
+ 
   <input
     type="text"
     name="level"
@@ -140,7 +140,7 @@ const TimetableForm = () => {
     className="border p-2 rounded"
   />
 
-  {/* Teacher Dropdown */}
+  
   <select
     name="teacher"
     required

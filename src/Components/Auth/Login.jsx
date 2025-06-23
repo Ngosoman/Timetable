@@ -53,6 +53,10 @@ const Login = () => {
     }
   };
 
+  const handleSignup = () => {
+    navigate("/signup");  
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-blue-50">
       <form
@@ -87,7 +91,7 @@ const Login = () => {
         {message && (
           <p className="text-red-500 text-sm mb-3">{message}</p>
         )}
-        <p>Don't have an account?<a href="/signup" className="text-red-500"> Signup</a></p>
+        <p>Don't have an account?<a onClick={handleSignup} className="text-red-500 hover:cursor-pointer"> Signup</a></p>
 
       </form>
 

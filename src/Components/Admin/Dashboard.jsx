@@ -40,13 +40,13 @@ const AdminDashboard = () => {
 
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Left Column: Users & Timetable Form */}
+        
         <div className="space-y-6">
           <Users users={users} />
           <TimetableForm users={users} />
         </div>
 
-        {/* Right Column: List of Timetables */}
+        
         <div>
           <TimetableList />
         </div>
