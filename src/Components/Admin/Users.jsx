@@ -63,7 +63,7 @@ const Users = () => {
               <th className="p-2">Username</th>
               <th className="p-2">Role</th>
               <th className="p-2">Details</th>
-              <th className="p-2">Password</th>
+              {/* <th className="p-2">Password</th> */}
               <th className="p-2">Change Password</th>
               <th className="p-2">Action</th>
             </tr>
@@ -75,7 +75,7 @@ const Users = () => {
                 <td className="p-2 capitalize">{user.role}</td>
                 <td className="p-2 text-left">
                   {user.role === "student" ? (
-                    <div className="text-xs leading-5 text-left">
+                    <div className="text-xs leading-5 text-left ">
                       <p><strong>Course:</strong> {user.course}</p>
                       <p><strong>Level:</strong> {user.level}</p>
                       <p><strong>Semester:</strong> {user.semester}</p>
@@ -86,7 +86,7 @@ const Users = () => {
                     </div>
                   )}
                 </td>
-                <td className="p-2">
+                {/* <td className="p-2">
                   {visiblePasswords[index] ? (
                     <span>{user.password}</span>
                   ) : (
@@ -98,7 +98,7 @@ const Users = () => {
                   >
                     {visiblePasswords[index] ? "Hide" : "Show"}
                   </button>
-                </td>
+                </td> */}
                 <td className="p-2">
                   <input
                     type="text"
